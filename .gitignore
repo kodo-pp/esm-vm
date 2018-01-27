@@ -6,4 +6,5 @@
 *.dll
 *.so
 *.so.*
+main
 !.gitignore
