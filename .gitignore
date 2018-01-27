@@ -1,0 +1,9 @@
+*.o
+*.d
+*.a
+*.out
+*.exe
+*.dll
+*.so
+*.so.*
+!.gitignore
