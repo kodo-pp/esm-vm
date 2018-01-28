@@ -3,10 +3,10 @@ EXECNAME?=main
 VERSION="1.0"
 
 CC=cc
-CFLAGS+=-Wall -Wextra -std=c99 -pedantic -D_PROJECT_VERSION=$(VERSION)
+CFLAGS+=-Wall -Wextra -std=c99 -pedantic -D_PROJECT_VERSION=$(VERSION) -Iinclude
 
 CXX=g++
-CXXFLAGS+=-Wall -Wextra -std=gnu++11 -pedantic -D_PROJECT_VERSION=$(VERSION)
+CXXFLAGS+=-Wall -Wextra -std=gnu++11 -pedantic -D_PROJECT_VERSION=$(VERSION) -Iinclude
 
 LIBS+=
 LDFLAGS+=
@@ -14,7 +14,8 @@ LD=$(CXX)
 
 RM=rm
 
-OBJS+=src/main.o
+OBJS+=src/main.o \
+src/vmpage.o \
 
 .PHONY: all clean run ee bee
 # Warning: `ee' and `bee' targets are debug ones, do not use on production!
@@ -35,4 +36,3 @@ bee: clean all
 # Not .PHONY targets
 $(EXECNAME): $(OBJS)
 	$(LD) $(LDFLAGS) $(LIBS) $(OBJS) -o $(EXECNAME)
-

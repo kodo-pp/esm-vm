@@ -7,4 +7,6 @@
 *.so
 *.so.*
 main
+*~
+*.swp
 !.gitignore
