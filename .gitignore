@@ -10,3 +10,4 @@ main
 *~
 *.swp
 !.gitignore
+*.TEST.log

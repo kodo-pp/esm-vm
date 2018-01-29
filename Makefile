@@ -16,6 +16,7 @@ RM=rm
 
 OBJS+=src/main.o \
 src/vmpage.o \
+src/vmpagetable.o \
 
 .PHONY: all clean run ee bee
 # Warning: `ee' and `bee' targets are debug ones, do not use on production!

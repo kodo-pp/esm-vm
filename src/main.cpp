@@ -5,16 +5,14 @@
 using namespace std;
 
 int main() {
-    Page page;
-    page.writeByte(149, (uint8_t)119);
-    for (size_t i = 140; i < 155; ++i) {
-        cout << i << ": " << (int)page.readByte(i) << endl;
+    PageTable pageTable(0);
+
+    pageTable.writeByte(1738248, 34);
+    for (size_t i = 1731240; i < 1738255; ++i) {
+        cout << "Byte at [" << i << "]: Page #" << pageTable.getPageIndex(i) << ", Value (decimal): " << (int)pageTable.readByte(i) << endl;
     }
 
-    try {
-        page.writeByte(888888, 9); // > 64K
-    } catch (runtime_error e) {
-        cerr << "Exception caught: " << e.what() << endl;
+    for (size_t i = 1731; i < 1738; ++i) {
+        cout << "Byte at [" << i << "]: Page #" << pageTable.getPageIndex(i) << ", Value (decimal): " << (int)pageTable.readByte(i) << endl;
     }
-    cout << page.readByte(888888) << endl; // > 64K
 }

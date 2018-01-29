@@ -14,7 +14,7 @@ Page::~Page() {
 }
 
 uint8_t Page::readByte(size_t offset) {
-    if (offset < 0 || offset >= pageSize) {
+    if (offset >= pageSize) {
         throw std::out_of_range("page byte read failed");
     }
 
@@ -22,7 +22,7 @@ uint8_t Page::readByte(size_t offset) {
 }
 
 void Page::writeByte(size_t offset, uint8_t byte) {
-    if (offset < 0 || offset >= pageSize) {
+    if (offset >= pageSize) {
         throw std::out_of_range("page byte write failed");
     }
 

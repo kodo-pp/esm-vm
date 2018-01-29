@@ -18,17 +18,28 @@ public:
     uint8_t readByte(size_t offset);
     void writeByte(size_t offset, uint8_t byte);
 };
-/*
+
 class PageTable {
 protected:
     map <size_t, Page *> pages;
+    Page * zeroPage;
 public:
+    explicit PageTable(size_t pagesCount);
+    virtual ~PageTable();
+
     size_t getPageIndex(size_t address);
+    size_t getPageOffset(size_t address);
     size_t getPageBeginAddress(size_t pageIndex);
+
+    Page * getPage(size_t pageIndex);
+    Page * getPageOrThrow(size_t pageIndex);
+    Page * getOrCreatePage(size_t pageIndex);
 
     uint8_t readByte(size_t address);
     void writeByte(size_t address, uint8_t byte);
-};*/
 
+    void createPage(size_t pageIndex);
+    void deletePage(size_t pageIndex);
+};
 
 #endif /* end of include guard: ESM_VM_PAGE_HPP */
