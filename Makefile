@@ -6,7 +6,7 @@ CC=cc
 CFLAGS+=-Wall -Wextra -std=c99 -pedantic -D_PROJECT_VERSION=$(VERSION) -Iinclude
 
 CXX=g++
-CXXFLAGS+=-Wall -Wextra -std=gnu++11 -pedantic -D_PROJECT_VERSION=$(VERSION) -Iinclude
+CXXFLAGS+=-Wall -Wextra -std=gnu++14 -pedantic -D_PROJECT_VERSION=$(VERSION) -Iinclude
 
 LIBS+=
 LDFLAGS+=
