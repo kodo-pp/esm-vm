@@ -111,7 +111,7 @@ void handleInstuction(uint8_t instruction, size_t & instrPtr) {
         instrPtr = *reg2 - 1; // -1 because instrPtr will be incremented in main()
         break;
     case 0x9: // JGZ
-        if (*reg2 > 0) {
+        if (*reg1 > 0) {
             instrPtr = *reg2 - 1;
         }
         break;

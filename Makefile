@@ -1,4 +1,4 @@
-EXECNAME?=main
+EXECNAME=esmvm
 
 VERSION="1.0"
 
