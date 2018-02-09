@@ -26,10 +26,51 @@ char rname(int t) {
     return 'A' + t;
 }
 
-int main() {
-    int ch;
-    while (cin.good()) {
-        ch = cin.get();
+int main(int argc, char ** argv) {
+    if (argc < 2) {
+        cerr << "Usage: " << argv[0] << " <filename>" << endl;
+        return 1;
+    }
+
+    ifstream fin(argv[1], ios::binary);
+    if (!fin.is_open()) {
+        cerr << "Unable to open file " << argv[1] << endl;
+        return 1;
+    }
+
+    uint64_t datapos = 0, codeend = 0;
+    {
+        char c[8];
+        fin.read(c, 8);
+        if (string(c, 8) != "ESMX0001") {
+            cerr << "Error: invaild file format" << endl;
+            fin.close();
+            return 1;
+        }
+
+        char _datapos[8];
+        fin.read(_datapos, 8);
+        for (int i = 0; i < 8; ++i) {
+            datapos |= uint64_t(_datapos[i]) << (8 * i);
+        }
+
+        char _codeend[8];
+        fin.read(_codeend, 8);
+        for (int i = 0; i < 8; ++i) {
+            codeend |= uint64_t(_codeend[i]) << (8 * i);
+        }
+        cout << "# Data located at " << datapos << endl;
+        cout << "# Code ends at " << codeend << endl;
+        fin.seekg(256);
+    }
+
+    while (fin.good()) {
+        if (codeend != 0 && size_t(fin.tellg()) - 256 >= codeend) {
+            cout << "# <code ends>" << endl;
+            break;
+        }
+        int ch;
+        ch = fin.get();
         if (ch != (ch & 0xff)) {
             return 42;
         }

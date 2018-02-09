@@ -25,7 +25,12 @@ protected:
     Page * zeroPage;
 public:
     explicit PageTable(size_t pagesCount);
+    PageTable(const PageTable & pageTable);
     virtual ~PageTable();
+
+    auto getAllPages() const -> decltype(pages) {
+        return pages;
+    }
 
     size_t getPageIndex(size_t address);
     size_t getPageOffset(size_t address);

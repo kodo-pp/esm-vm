@@ -5,6 +5,8 @@
 
 using namespace std;
 
+#define UNUSED __attribute__((unused))
+
 PageTable pageTable(0);
 
 void handleInstuction(uint8_t instruction, size_t & instrPtr);
@@ -36,14 +38,28 @@ int main(int argc, char ** argv) {
         return 3;
     }
 
+    // File header
+    {
+        char c[8];
+        fin.read(c, 8);
+        if (string(c, 8) != "ESMX0001") {
+            cerr << "Error: invaild file format" << endl;
+            fin.close();
+            return 4;
+        }
+
+        // Data position amd other stuff. We basically don't need it, so let's just ignore it;
+        UNUSED char _[256 - 8];
+        fin.read(_, 256 - 8);
+    }
+
     // Read all code to memory table
     // TODO: add buffers, not just byte-by-byte reading and writing
     // NOTE: it's a separate block to reduce some local variables' lifetime
     {
         register size_t i = 0;
-        register char c;
         while (fin.good()) {
-            c = fin.get();
+            register char c = fin.get();
             // If we don't do that, an EOF (-1) will be written additionally
             // (and that's not what we want)
             if (!fin.good()) {
@@ -58,9 +74,8 @@ int main(int argc, char ** argv) {
     // NOTE: again, separate block
     {
         size_t instrPtr = 0; // pointer to instruction
-        register uint8_t instruction; // the instruction itself
         while (true) {
-            instruction = pageTable.readByte(instrPtr);
+            register uint8_t instruction = pageTable.readByte(instrPtr); // the instruction itself
             handleInstuction(instruction, instrPtr);
             ++instrPtr;
         }
@@ -150,7 +165,7 @@ void handleInstuction(uint8_t instruction, size_t & instrPtr) {
         ((void (*)(void))(0))();
 
         // If that didn't segfault, then what?
-        volatile auto _ = *(int*)(nullptr);
+        UNUSED volatile auto _ = *(int*)(nullptr);
 
         // What are we running on if execution continues?
         recursive_death();

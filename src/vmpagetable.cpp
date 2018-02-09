@@ -12,6 +12,10 @@ PageTable::PageTable(size_t pagesCount) {
     zeroPage = new Page;
 }
 
+PageTable::PageTable(const PageTable & pageTable): pages(pageTable.getAllPages()) {
+    zeroPage = new Page;
+}
+
 PageTable::~PageTable() {
     while (!pages.empty()) {
         size_t pageIndex = (*pages.begin()).first;
