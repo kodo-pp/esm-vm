@@ -151,9 +151,7 @@ void handleInstuction(uint8_t instruction, size_t & instrPtr) {
         break;
     case 0xE: // XRX
         {
-            decltype (*reg1) T = *reg1;
-            *reg1 = *regX;
-            *regX = T;
+            swap(*reg1, *regX);
             break;
         }
     case 0xF: // STP
